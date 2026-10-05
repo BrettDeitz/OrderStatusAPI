@@ -1,0 +1,36 @@
+$kind: http-request
+name: Create Order
+order: 2000
+method: POST
+url: '{{baseUrl}}/orders'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "vendor": "Acme Pharmacy",
+      "patientName": "John Doe"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      // ✅ Test 1: Check the order was created successfully
+      pm.test("Status code is 201 Created", function () {
+          pm.response.to.have.status(201);
+      });
+
+      // ✅ Test 2: Check the response has the expected fields
+      pm.test("Response has an order ID", function () {
+          const json = pm.response.json();
+          pm.expect(json.id).to.be.a("string").and.not.empty;
+          pm.expect(json.status).to.eql("Accepted");
+      });
+
+      // 💾 Save the new order's ID to the environment
+      // This makes {{orderId}} available in ALL subsequent requests
+      const json = pm.response.json();
+      pm.environment.set("orderId", json.id);
+      console.log("✅ orderId saved:", json.id);

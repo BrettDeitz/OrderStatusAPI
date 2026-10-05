@@ -1,0 +1,27 @@
+$kind: http-request
+name: Get All Orders
+order: 3000
+method: GET
+url: '{{baseUrl}}/orders'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      // ✅ Test 1: Request succeeded
+      pm.test("Status code is 200 OK", function () {
+          pm.response.to.have.status(200);
+      });
+
+      // ✅ Test 2: Response is an array
+      pm.test("Response is a list of orders", function () {
+          const json = pm.response.json();
+          pm.expect(json).to.be.an("array");
+      });
+
+      // ✅ Test 3: The order we just created is in the list
+      pm.test("Created order appears in the list", function () {
+          const json = pm.response.json();
+          const orderId = pm.environment.get("orderId");
+          const found = json.some(o => o.id === orderId);
+          pm.expect(found).to.be.true;
+      });

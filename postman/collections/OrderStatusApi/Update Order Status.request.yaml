@@ -1,0 +1,34 @@
+$kind: http-request
+name: Update Order Status
+order: 5000
+method: POST
+url: '{{baseUrl}}/orders/{{orderId}}/status'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "status": "Processing"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      // ✅ Test 1: Update succeeded
+      pm.test("Status code is 200 OK", function () {
+          pm.response.to.have.status(200);
+      });
+
+      // ✅ Test 2: Status was actually updated
+      pm.test("Order status updated to Processing", function () {
+          const json = pm.response.json();
+          pm.expect(json.status).to.eql("Processing");
+      });
+
+      // ✅ Test 3: The right order was updated
+      pm.test("Correct order was updated", function () {
+          const json = pm.response.json();
+          pm.expect(json.id).to.eql(pm.environment.get("orderId"));
+      });

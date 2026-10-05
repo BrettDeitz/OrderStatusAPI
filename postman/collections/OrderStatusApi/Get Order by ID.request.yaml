@@ -1,0 +1,26 @@
+$kind: http-request
+name: Get Order by ID
+order: 4000
+method: GET
+url: '{{baseUrl}}/orders/{{orderId}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      // ✅ Test 1: Order was found
+      pm.test("Status code is 200 OK", function () {
+          pm.response.to.have.status(200);
+      });
+
+      // ✅ Test 2: The order ID in the response matches what we asked for
+      pm.test("Returned the correct order", function () {
+          const json = pm.response.json();
+          pm.expect(json.id).to.eql(pm.environment.get("orderId"));
+      });
+
+      // ✅ Test 3: Order has the vendor and status we set when creating it
+      pm.test("Order has expected fields", function () {
+          const json = pm.response.json();
+          pm.expect(json.vendor).to.eql("Acme Pharmacy");
+          pm.expect(json.status).to.eql("Accepted");
+      });

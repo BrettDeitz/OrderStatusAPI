@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="OrderStatusApi.csproj" />
+  <Project Path="..\OrderStatusApi.Tests\OrderStatusApi.Tests.csproj" />
+</Solution>

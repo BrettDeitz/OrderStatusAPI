@@ -1,0 +1,7 @@
+# Use this workspace to collaborate
+workspace:
+  id: ade1b688-f065-4795-8d04-fed91ce9eff4
+
+localResources:
+  specs:
+    - ../obj/Debug/net10.0/EndpointInfo/OrderStatusApi.json

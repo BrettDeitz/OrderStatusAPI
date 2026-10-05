@@ -1,0 +1,3 @@
+$kind: collection
+name: OrderStatusApi
+description: 'Order Status API - a collection for learning Postman with a real C# API.'

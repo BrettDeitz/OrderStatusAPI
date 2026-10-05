@@ -1,0 +1,6 @@
+name: Development
+values:
+  - key: baseUrl
+    value: 'http://localhost:5035'
+  - key: orderId
+    value: ''
