@@ -1,3 +1,8 @@
+## Version History
+
+- v1.1.1 - README version history added
+- v1.1.0 - README and setup documentation added
+- v1.0.0 - Initial project setup with HL7 payload support
 # OrderStatusApi
 
 Healthcare-style order status API built with ASP.NET Core, Entity Framework Core, and SQL-backed storage. This project models a realistic order-tracking workflow and demonstrates backend development patterns used in healthcare and integration-focused environments.
